@@ -1,0 +1,109 @@
+
+seed 
+    color buffer, framebuffer ... 
+    double mode, (glut display mode? )
+
+
+
+---OpenGL入门教程---
+    TC 的老旧图形接口
+    OpenGL 是一个工业标准，它的技术紧跟时代，现今各个显卡厂家无一不对 OpenGL 提供强力支持，
+    GLUT 
+        The OpenGL Utility Toolkit, can be used to render the gui fw 
+        The original GLUT has been unsupported for 20 years
+        freeglut now 
+        本来 OpenGL 程序一般还要包含<GL/gl.h>和<GL/glu.h>, 但是glut进行了一定程度的封装
+        以 glut 开头的函数都是该库提供的
+        it has not only window sys. 
+        qq what kinds of func. are provided in glut? 
+            func. 
+                window sys. 
+                    GLUTAPI void APIENTRY glutInitWindowPosition(int x, int y);
+                    GLUTAPI void APIENTRY glutInitWindowSize(int width, int height);
+                    GLUTAPI void APIENTRY glutMainLoop(void);
+                    glutCreateSubWindow
+                    glutFullScreen
+                overlay 
+                    glutShowOverlay
+                menu 
+                    glutCreateMenu
+                set timer 
+                    glutTimerFunc
+                mouse, key 
+                    glutIgnoreKeyRepeat
+                pre-built models
+                    glutWireTorus, glutSolidTorus
+                    GLUTAPI void APIENTRY glutWireDodecahedron(void);
+                    GLUTAPI void APIENTRY glutSolidDodecahedron(void);
+                    GLUTAPI void APIENTRY glutWireSphere(GLdouble radius, GLint slices, GLint stacks);
+                    GLUTAPI void APIENTRY glutSolidSphere(GLdouble radius, GLint slices, GLint stacks);
+                    GLUTAPI void APIENTRY glutWireCone(GLdouble base, GLdouble height, GLint slices, GLint stacks);
+                    GLUTAPI void APIENTRY glutSolidCone(GLdouble base, GLdouble height, GLint slices, GLint stacks);
+                    GLUTAPI void APIENTRY glutWireCube(GLdouble size);
+                    GLUTAPI void APIENTRY glutSolidCube(GLdouble size);
+                    GLUTAPI void APIENTRY glutWireTorus(GLdouble innerRadius, GLdouble outerRadius, GLint sides, GLint rings);
+                    GLUTAPI void APIENTRY glutSolidTorus(GLdouble innerRadius, GLdouble outerRadius, GLint sides, GLint rings);
+                    GLUTAPI void APIENTRY glutWireDodecahedron(void);
+                    GLUTAPI void APIENTRY glutSolidDodecahedron(void);
+                    GLUTAPI void APIENTRY glutWireTeapot(GLdouble size);
+                    GLUTAPI void APIENTRY glutSolidTeapot(GLdouble size);
+                    GLUTAPI void APIENTRY glutWireOctahedron(void);
+                    GLUTAPI void APIENTRY glutSolidOctahedron(void);
+                    GLUTAPI void APIENTRY glutWireTetrahedron(void);
+                    GLUTAPI void APIENTRY glutSolidTetrahedron(void);
+                    GLUTAPI void APIENTRY glutWireIcosahedron(void);
+                    GLUTAPI void APIENTRY glutSolidIcosahedron(void);
+                
+            field 
+                mouse/keyboard interaction 
+                    /* Mouse buttons. */
+                    #define GLUT_LEFT_BUTTON		0
+                    #define GLUT_MIDDLE_BUTTON		1
+                    #define GLUT_RIGHT_BUTTON		2    
+                Menu
+                right click menu 
+                define the shape of a corsor 
+                    GLUT_CURSOR_INFO
+        GLUT_SINGLE 表示使用单缓冲，与之对应的还有 GLUT_DOUBLE（使用双缓冲）
+        glutDisplayFunc，设置一个函数，当需要进行画图时，这个函数就会被调用。（这个说法不够准确
+        glClear 函数还可以清除其它的东西
+        glFlush，保证前面的 OpenGL 命令立即执行
+        qq why always use triangles? 
+            OpenGL 为了效率，放宽了检查，这可能导致显示错误。要避免这个错误，尽量使用
+            三角形，因为三角形都是凸多边形）
+    gl related func. 
+        glVertex — specify a vertex
+        qq what does this mean? glVertex3fv 
+            (spec. logical "points")
+            glVertex commands are used within glBegin/glEnd pairs to specify point, line, and polygon vertices
+            The current color, normal, texture coordinates, and fog coordinate are associated with the vertex when glVertex is called.
+            *Invoking glVertex outside of a glBegin/glEnd pair results in undefined behavior.
+        qq OpenGL 是如何知道我想拿这些顶点来干什么呢？是一个一个的画出来，还是连成线？或者构成一个多边形？或者做其它什么事情？
+            OpenGL 要求：指定顶点的命令必须包含在 glBegin 函数之后，glEnd 函数之前
+            并由 glBegin 来指明如何使用这些点。
+            (glBegin)
+            Specifies the primitive or primitives that will be created from vertices
+            group of like primitives
+            specifies in which of ten ways the vertices are interpreted.
+            GL_LINES
+                Treats each *pair of vertices as an independent line segment.    
+            GL_LINE_STRIP
+                Draws a connected group of line segments from the first vertex to the last.
+            GL_TRIANGLES
+                Treats each *triplet of vertices as an independent triangle.
+            GL_TRIANGLE_STRIP
+                For odd n, vertices n, n + 1 , and n + 2 define triangle n. For even n, vertices n + 1 , n, 
+                    and n + 2 define triangle n. N - 2 triangles are drawn.
+            GL_TRIANGLE_FAN
+                all the vertices need to go around the central vertex
+            GL_POLYGON
+                Draws a single, convex polygon. Vertices 1 through N define this polygon.
+        task- draw a fan with lines, draw polygon...
+        task- draw line with timer func. (anim. )
+        task- 画一个圆, 画一个五角星 op6 画出正弦函数的图形 
+
+
+        ...
+    ...
+            
+            
