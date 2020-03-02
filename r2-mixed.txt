@@ -3,7 +3,7 @@ seed
     color buffer, framebuffer ... 
     double mode, (glut display mode? )
 
----OpenGL入门教程---
+    
     intro.
         TC 的老旧图形接口
         OpenGL 是一个工业标准，它的技术紧跟时代，现今各个显卡厂家无一不对 OpenGL 提供强力支持，
@@ -74,6 +74,7 @@ seed
             OpenGL 为了效率，放宽了检查，这可能导致显示错误。要避免这个错误，尽量使用
             三角形，因为三角形都是凸多边形）
     gl related func. (Legacy mode)
+        ---OpenGL入门教程---
         ---basic func. 
         glVertex — specify a vertex
         qq what does this mean? glVertex3fv 
@@ -229,6 +230,90 @@ seed
                 Typical widgets include menus, scrollbars, and graphical buttons op45
             The Modeling–Rendering Paradigm
             Graphics Architectures
+            ---
+            Virtually all modern graphics systems are raster based
+            The image we see on the output device is an array
+            Detail of area around one eye showing individual pixels
+            1-bit-deep frame buffer allows only two colors, whereas an 8-bit-deep frame
+                buffer allows 28 (256) colors
+            it can be viewed as core element 
+            qq what is frame buffer? 
+                the pixels are stored in a part of memory 
+                a part of mem that stores color info. for rendering 
+            In full-color systems, there are 24 (or more) bits per pixel.
+            qq what is full-color system
+            High dynamic range (HDR) systems use 12
+                or more bits for each color component
+            qq graphicsal func? what are needed? 
+                to assign values to the pixels in the frame buffer that best represent
+                these entities
+            but to display its outline by the three line segments connecting the vertices, 
+                the graphics system
+                must generate a set of pixels that appear as line 
+                segments to the viewer
+            The conversion of geometric entities to pixel colors and locations in the frame buffer is known
+                as rasterization, or scan conversion
+            qq what is rasterization? 
+            qq what could be inside a gpu mem? 
+                custom-tailored to carry out specific graphics functions
+            The frame buffer
+                is accessed through the graphics processing unit and usually is on the same circuit
+                board as the GPU.
+            qq where is framebuffer typically? modern. 
+            be used as mini supercomputers for general purpose computing
+            The cathode-ray tube (CRT)
+            Modern displays are no longer coupled to these low frequencies and operate at rates
+                up to about 85 Hz
+            Interlaced displays are used in commercial television
+            Color CRTs have three different colored phosphors (red, green, and blue)
+            Often called pointing devices, these devices allow a user to indicate a particular location on the display
+            Another approach is to associate a function called a callback with a specific type
+                of event
+            to be realistic, we need lighting, shading, and properties of materials
+            we discuss the way images are formed by optical systems
+            The object exists in space independent of any image-formation process and of any viewer
+            One of the main functions of
+                a CAD system is to provide an interface that makes it easy for a user to 
+                build a synthetic model of the world
+            In the human visual system, the image is formed on the back of the eye. In a
+                camera, the image is formed in the film plane
+            A given light source has a color determined
+                by the energy that it emits at various wavelengths
+            those near 450 nm are seen as blue; and
+                those near 650 nm are seen as red.
+            A laser, for example, emits light at a single frequency, whereas an incandescent lamp
+                emits energy over a range of frequencies
+            visible spectrum
+            Geometric optics models light sources as emitters of light energy
+            More complex sources, such as a light bulb, can be characterized as emitting  
+                light over an area and by emitting more light in one direction than another
+            Modeling of light sources is discussed in Chapter 5.
+            qq two ways of gen. images from graphics sys. 
+                We can start building an imaging model by following light from a source
+            A ray is a semi-infinite line
+                that emanates from a point and travels to infinity in a particular direction
+                *it can be in two dir. : ether start from light source or start from eye 
+            figure 1.8 match rays with description 
+            contribute to the image. 
+            provide a close approximation to the physical world, it is usually not well suited for
+                real-time computation
+            surfaces that scatter the incoming light equally in all directions
+            requires more computation than can be done in real time. 
+            The human visual system is extremely
+                complex but still obeys the physical principles of other optical imaging systems
+            using the fact that the two triangles in Figure 1.20 are similar 
+            light sensors and are located on the retina
+            excited by electromagnetic energy
+            The rods are low-level-light sensors that account for our night vision and are not
+                color sensitive
+            *qq what is the def. of the resolution? 
+                Resolution is a measure of what
+                size objects we can see. More technically, it is a measure of how close we can place two
+                points and still recognize that there are two distinct points.
+
+
+
+
         ch02 -- GRAPHICS PROGRAMMING
             -all
             *2.8 The Gasket Program
