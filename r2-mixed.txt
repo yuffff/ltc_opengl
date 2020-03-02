@@ -310,6 +310,33 @@ seed
                 Resolution is a measure of what
                 size objects we can see. More technically, it is a measure of how close we can place two
                 points and still recognize that there are two distinct points.
+            qq what happends if the two light sources are emitting the same energy, but with diff. wavelength? 
+                If these two lights were to emit the same energy, they
+                would appear to us to have different brightness, because of the unequal response
+                of the cones to red and green light.
+            We are most sensitive to green light, and least
+                sensitive to red and blue.
+            work with just three basic, or primary, colors. We
+                discuss color in depth in Chapter 2.
+            The optic nerves  are connected to the rods and cones in an extremely complex arrangement
+            sophisticated
+            in the brain called the visual cortex
+            where high-level functions, such as object recognition, are carried out
+            *Once we have designed the scene, we want to render it, adding 
+                light sources, material properties, and a variety of other detailed effects
+            form a production-quality image
+            render farm, a cluster of computers configured for numerical computing
+            qq what can be included in a model? 
+                Models, including the geometric objects, lights, cameras, and material properties
+            We shall examine scene graphs in Chapter 8.
+            adder and a multiplier
+            calculation to the adder and can start its next multiplication while the adder carries
+                out the second step of the calculation on the first set of data
+            the throughput of the system, has been doubled
+            *gpu:large sets of vertices and pixels must be processed
+                in the same manner.
+            Here we are content to  overview these steps and show that they can be pipelined
+            
 
 
 
