@@ -3,12 +3,14 @@ seed
     color buffer, framebuffer ... 
     double mode, (glut display mode? )
 
-
-
 ---OpenGL入门教程---
-    TC 的老旧图形接口
-    OpenGL 是一个工业标准，它的技术紧跟时代，现今各个显卡厂家无一不对 OpenGL 提供强力支持，
-    GLUT 
+    intro.
+        TC 的老旧图形接口
+        OpenGL 是一个工业标准，它的技术紧跟时代，现今各个显卡厂家无一不对 OpenGL 提供强力支持，
+    _basic_offline learnopengl_ok
+    Rendering Pipeline
+        ...
+    GLUT related
         The OpenGL Utility Toolkit, can be used to render the gui fw 
         The original GLUT has been unsupported for 20 years
         freeglut now 
@@ -71,7 +73,8 @@ seed
         qq why always use triangles? 
             OpenGL 为了效率，放宽了检查，这可能导致显示错误。要避免这个错误，尽量使用
             三角形，因为三角形都是凸多边形）
-    gl related func. 
+    gl related func. (Legacy mode)
+        ---basic func. 
         glVertex — specify a vertex
         qq what does this mean? glVertex3fv 
             (spec. logical "points")
@@ -101,9 +104,170 @@ seed
         task- draw a fan with lines, draw polygon...
         task- draw line with timer func. (anim. )
         task- 画一个圆, 画一个五角星 op6 画出正弦函数的图形 
-
-
+        qq given vertices data and opengl draw command, say, what will happen 
+        qq can it be a complete circle when using line GL_LINE_STRIP? n how to make it complete? 
+        h- glBegin 其实是在设置opengl状态，glVertex...是在发送数据到gpu
+        大家可以发挥自己的想象，画出各种几何图形或者各种函数图像--辅助数学的学习是可以做到的
+        ---设置样式
+        点的大小默认为 1 个像素，但也可以改变之。改变的命令为 glPointSize
+        qq how points be represented in opengl? circle or square? s. 
+        glPointSize:
+        + naming convention
+            + a naming convention is a set of rules for choosing the 
+                character sequence to be used for identifiers which denote variables, types, functions
+                enable code reviews to focus on more important issues than arguing over syntax and naming standards.
+                with partisans of each holding theirs to be the best and others to be inferior.
+                Many companies have also established their own set of conventions.
+            little camel-case
+            big camel-case
+            snake case naming style
+                practice of writing compound words or phrases
+                elements are separated with one underscore character (_) and no spaces
+                usually lowercased within the compound
+                Naming convention
+        h- opengl uses small camel naming style 
+        可以设置样式--使用 glLineStipple 来设置虚线的样式
+        使用pattern与factor控制样式，具体由gl来计算
+        task- draw LINE_STIPPLE with opengl 
+        ---
+        一个多边形具有两个面。每一个面都可以设置不同的绘制方式：填充、只绘制边缘轮:GL_FILL, GL_LINE, GL_POINT 
+        glPolygonMode(GL_FRONT, GL_FILL); 
+        可以交换正反概念：glFrontFace(GL_CCW); // 设置 CCW 方向为“正面”，CCW 即 CounterClockWise，逆时针， CW 
+        使用 glEnable(GL_CULL_FACE);来启动剔除功能（使用 glDisable(GL_CULL_FACE)可以关闭之）
+        然后，使用 glCullFace 来进行剔除。
+        glCullFace 的参数可以是 GL_FRONT，GL_BACK 或者 GL_FRONT_AND_BACK，分别表示剔除正面、剔
+            除反面、剔除正反两面的多边形。
+        使用 glCullFace(GL_FRONT_AND_BACK) 后，所有的多边形都将被剔除，所以看见的就只有点和直线。
+        qq does it has influ. for points and lines? n 
+        qq what happends if we do glCullFace(GL_FRONT_AND_BACK)? what can be seen from the scene still? 
+        qq 默认是关闭的？（至少直接模式下，性能没有被考虑--默认faceculling是disabled）
+        直线可以被画成虚线，而多边形则可以进行镂空。
+        glEnable(GL_POLYGON_STIPPLE);来启动镂空模式
+        参数 mask 指向一个长度为 128 字节的空间，它表示了一个 32*32 的矩形应该如何镂空
+        使用 glPolygonStipple 来设置镂空的样式
+        h- 这些细节会使我们在一些图象绘制中更加得心应手。
+        可以把一些数据写到程序之外的文件中，并用专门的工具编辑之
+        ---
+        两种颜色模式
+            一种是 RGBA，一种是颜色索引模式
+        RGBA 模式中，数据直接就代表了颜色；而颜色索引模式中，数据代表的是一个索引，要得到真正的颜色，还必须去查索引表
+        glColor*系列函数可以用于设置颜色
+        glColor3f(1.0f, 0.0f, 0.0f); 表示不使用绿、蓝色，而将红色使用最多，于是得到最纯净的红色
+        如果 OpenGL 找不到精确的颜色，会进行类似“四舍五入”的处理。
+        qq 如何设置颜色？用一个shader模拟一下
+        OpenGL 并直接没有提供设置颜色表的方法，因此设置颜色表需要使用操作系统的支持。
+        OpenGL 工具包：aux。这个工具包是 VisualStudio 自带的，不必另外安装，但它已经过时
+        在 RGB 模式下，使用 glClearColor 来指定“空”的颜色
+        ext+
+            glClear（）
+            函数的作用是用当前缓冲区清除值
+            第一条语句表示清除颜色设为黑色，第二条语句表示实际完成了把整个窗口清除为黑色的任务--glClear 
+            qq if we only have glClearColor（0.0，0.0，0.0，0.0）; what can be the result 
+            像素检验、裁剪检验、抖动和缓存的写屏蔽都会影响glClear的操作，其中，裁剪范围限制了清除的区域，而glClear命令还会
+                忽略alpha函数、融合函数、逻辑操作、模板、纹理映射和z缓存
+        OpenGL 会计算两点顶点之间的其它点，并为它们填上“合适”的颜色，使相邻的点的颜色值都比较接近
+        默认是渐变效果，如果是flat就不会：GL_SMOOTH， GL_FLAT
+        ---
+        我们可能希望把整个看到的图形画下来，但它只占据纸张的一部分，而不是全部。（视口变换）
+        OpenGL 变换实际上是通过矩阵乘法来实现
+        模型变换和视图变换--
+            从“相对移动”的观点来看，改变观察点的位置与方向和改变物体本身的位置与方向具有等效性。
+            在 OpenGL 中，实现这两种功能甚至使用的是同样的函数。
+            对应shader中的model matrix 和 view matrix 
+        qq we can remove translation part of mv matrix? y 
+        实际变换的顺序与代码中写的顺序是相反的
+        qq ((RT)v) = (R(Tv))的含义是？
+        于“先移动后旋转”和“先旋转后移动”得到的结果很可能不同
+        qq why designed like so? OpenGL 之所以这样设计，是为了得到更高的效率。
+        ---
+        投影变换 x2 basic
+            glFrustum透视投影
+                平接头体
+            glOrtho正投影
+                相当于在无限远处观察得到的结果，它只是一种理想状态。但对于计算机来说，使用正投影有可能
+                    获得更好的运行速度
+        ---
+        我们在进行矩阵操作时，有可能需要先保存某个矩阵，过一段时间再恢复它。当我们需要保存时，
+            调用 glPushMatrix 函数
+        OpenGL 规定堆栈的容量至少可以 容纳 32 个矩阵
+        通常，用这种先保存后恢复的措施，比先变换再逆变换要更方便，更快速。
+        模型视图矩阵和投影矩阵都有相应的堆栈。使用 glMatrixMode 来指定当前操作的究竟是模
+            型视图矩阵还是投影矩阵。
+        *gluLookAt — define a viewing transformation
+            creates a viewing matrix derived from its para. 
+            qq gluLookAt is equivalent to? use glMultMatrixf
+            https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluLookAt.xml
+        ---回调函数？timer in Legacy opengl?
+        *qq 举例说明我们自己的程序无法掌握究竟什么时候该绘制窗口?
+            假如你的程序窗口碰巧被别的窗口遮住了，后来用户又把原
+            来遮住的窗口移开，这时你的窗口需要重新绘制。很不幸的，你无法知道这一事件发生的具体时
+            间。因此这一切只好委托操作系统来办了。
+        glutIdleFunc(&myIdle);
+        GLUT 工具包也提供了一个比较类似的函数：glutIdleFunc，表示在 CPU 空闲
+            的时间调用某一函数。其实 GLUT 还提供了一些别的函数，例如“在键盘按下时做某事”等
         ...
+        获得帧率？ 
+            帧速就是一秒钟内播放的画面数目（FPS）。我们可以先测量绘制两幅画面之间时间 t，
+            实际上可能还有别的方法实现这个
+        通常 C 语言的 time 函数精确度一般只到一秒
+        clock 函数也就到十毫秒左右
+        +h-
+            opengl2 legacy模式仅仅开放很少功能，后面opengl3等开放越来越多的可编程管线，包括后面的vulkan
+            但是同时又有很多人用python或者其他语言简化编程的过程，这是为啥？或许并不矛盾？ pp-
+            posi- 显示api的开放代表着硬件的提升，vulkan基本开放了整个过程。py抽象代表着软件的提升
+                最终的结局是那个中间的东西--引擎。这是最重要的。--走进去又走出来的过程
+        设置这些属性的艺术性远远超过了技术性，往往是一些美术制作人员设
+            置好各种属性（并保存为文件），然后由程序员编写的程序去执行绘制工作
+        可以玩玩类似 3DS MAX 之类的软件，对理解光照、熟悉各种属性设置会有一些帮助。
+        --unity也是，起码是一种理解！ 不要完全不管！ 作为对照组！！！ 
+    book-interactive computer graphics 6th edition shader based 
+        // take a look at the contents first:
+            https://www.pearson.com/us/higher-education/product/Angel-Interactive-Computer-Graphics-A-Top-Down-Approach-with-Shader-Based-Open-GL-6th-Edition/9780132545235.html?tab=contents
+        ch01
+            A Graphics System--Pixels and the Frame Buffer
+            Light 
+                Typical widgets include menus, scrollbars, and graphical buttons op45
+            The Modeling–Rendering Paradigm
+            Graphics Architectures
+        ch02 -- GRAPHICS PROGRAMMING
+            -all
+            *2.8 The Gasket Program
+            *Adding Interaction
+            Double Buffering
+        ch03 -- CHAPTER 3 GEOMETRIC OBJECTS AND TRANSFORMATIONS
+            -all
+            Quaternions
+        ch04 
+            Walking Through a Scene
+        ch05 -- LIGHTING 
+            -all 
+            Polygonal Shading
+            Per-Fragment Lighting
+        ch06 -- CHAPTER 6 FROM VERTICES TO FRAGMENTS
+            -rough 
+        ch07 
+            Texture Generation
+            Environment Maps
+            Antialiasing
+            Back-to-Front and Front-to-Back Rendering
+            Scene Antialiasing and Multisampling
+        ch08 -- MODELING AND HIERARCHY
+            -rough
+        ch09 
+            Physically Based Models and Particle Systems
+            -rough
+        ch10 -- CURVES AND SURFACES
+            -all cad, mesh gen. 
+        ch11 -- ADVANCED RENDERING -- RTX 
+            Volume Rendering
+    book-OpenGL.Programming.Guide.8th (red book )
+    book-OpenGL superbible 7th
+    book-_basic_interactive_7th edition
+    spec-gl33
+    spec-gl46 
+    spec-vulkan1.2
+    
+
     ...
             
             
