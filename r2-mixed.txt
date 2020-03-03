@@ -336,9 +336,9 @@ seed
             *gpu:large sets of vertices and pixels must be processed
                 in the same manner.
             Here we are content to  overview these steps and show that they can be pipelined
+            qq what is the major task of the vertex procesing block? 
+                 carry out coordinate transformations+ op68 
             
-
-
 
 
         ch02 -- GRAPHICS PROGRAMMING
@@ -376,6 +376,14 @@ seed
     book-OpenGL superbible 7th
     book-_basic_interactive_7th edition
     spec-gl33
+        intro. op16 
+            framebuffer manipulation
+            There are also calls to effect direct control of the framebuffer, such as reading and writing pixels
+            obtain optimum performance in carrying out OpenGL calls
+            OpenGL maintains a considerable amount of state information
+            a pipeline having some programmable stages
+            expected to be removed in a future version
+            
     spec-gl46 
     spec-vulkan1.2
     
